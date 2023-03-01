@@ -33,14 +33,14 @@ def motifsearch(DNAstring,motif) :
     print(lst)
     
     # trying to print the formatting how rosalind wants it: as a single line with only a space between the integers
-    # output = str(print(lst))
-    # print(output)
-    # output = output.replace(',','')
-    # output = output.replace('[','')
-    # output = output.replace(']','')
-    # print(output)
-    # doesn't work
+    output = ''
+    for i in lst :
+        output = output + str(i)+' '
 
+    # output = ''.join(lst) # join only works on strings
+    print(output)
+    # print(output)
+    
 print('----- Sample output -----')
 motifsearch('GATATATGCATATACTT','ATAT')
 print('----- End sample -----')
