@@ -22,7 +22,7 @@ for line in fh :
     if line[0] == '>' :
         # if line contains new >fasta id, add previous id and dnastring to dictionary unless it is the first entry
         try :
-            print(len(dnastring),'nt :',dnastring)
+            # print(len(dnastring),'nt :',dnastring)
             dict_fastas[fasta_id]= dnastring
             dnastring = ''
         # if dnastring does not yet exist because it is the first fasta id of the document, create empty dna string
@@ -39,10 +39,10 @@ for line in fh :
             dnastring = dnastring + line.strip()
 
 # adds the last fasta entry to the dictionary at end of file
-print(len(dnastring),'nt :',dnastring)
+# print(len(dnastring),'nt :',dnastring)
 dict_fastas[fasta_id]= dnastring
-print(dict_fastas)
-print('Number of sequences:',len(dict_fastas))
+# print(dict_fastas)
+# print('Number of sequences:',len(dict_fastas))
 
 lengths_list = list()
 list_dstrings = list()
@@ -77,13 +77,14 @@ for x in range(maxseq) :
     
     # ntdict = a dictionary with nt position as key, and a list of number of occurences as values, ordered by A, C, G, T
     ntdict[x] = [totals[f'{x}A'],totals[f'{x}C'],totals[f'{x}G'],totals[f'{x}T']]
-print(ntdict)
-print(totals)
+# print(ntdict)
+# print(totals)
 
 # for x in range(maxseq) :
 #     print('max occurences:',max(totals[f'{x}A'],totals[f'{x}C'],totals[f'{x}G'],totals[f'{x}T']))
 
-# find consensus seq
+# find consensus seq, 
+# I think first nucleotide of A,C,G,T will be used in consensus if more than one max occurence is found for a position (eg. A will be used in A = 3, C = 3, G = 1, T = 0)
 conseq = ''
 for k, v in ntdict.items() :
     # print(k, v),# print(type(v))
@@ -99,9 +100,36 @@ for k, v in ntdict.items() :
     elif max(v) == v[3] :
         # print('T')
         conseq = conseq + 'T'
-print(f'{len(conseq)} nt:',conseq)
+# print(f'{len(conseq)} nt consensus:',conseq)
 
+A_counts = list()
+C_counts = list()
+G_counts = list()
+T_counts = list()
+for k, v in ntdict.items() :
+    A_counts.append(v[0])
+    C_counts.append(v[1])
+    G_counts.append(v[2])
+    T_counts.append(v[3])
 
+output_A = ''
+for i in A_counts :
+    output_A = output_A + str(i)+' '
+output_C = ''
+for i in C_counts :
+    output_C = output_C + str(i)+' '
+output_G = ''
+for i in G_counts :
+    output_G = output_G + str(i)+' '
+output_T = ''
+for i in T_counts :
+    output_T = output_T + str(i)+' '       
+
+print(conseq)
+print('A:',output_A)
+print('C:',output_C)
+print('G:',output_G)
+print('T:',output_T)
 # for i in range(len())
 
 # for k, v in totals.items() :
