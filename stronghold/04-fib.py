@@ -13,8 +13,8 @@ sequence = [1,1]
 while n > len(sequence):
     # I don't think I need this try/except anymore
     try :
-        sequence[n-2] * 3 + sequence[n-1]
+        sequence[n-2] * k + sequence[n-1]
     except :
-        sequence.append(sequence[len(sequence)-1] + sequence[len(sequence)-2]*3)
+        sequence.append(sequence[len(sequence)-1] + sequence[len(sequence)-2]*k)
 if len(sequence) >= n :
     print(sequence[n-1])
